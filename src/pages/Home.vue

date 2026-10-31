@@ -1,0 +1,114 @@
+<template>
+    <div class="home">
+        <header class="home__header">
+            <p class="home__kicker">SahilPHP with Vue 3 + TypeScript + Vite</p>
+            <h1 class="home__title">Welcome</h1>
+            <p class="home__description">
+                Your Vue application is mounted by your PHP controller and compiled with
+                Vite. Controller data is passed safely to every rendered page component.
+            </p>
+        </header>
+
+        <section class="home__grid">
+            <DashboardCard
+                title="Application"
+                subtitle="Configured by your PHP configuration"
+                :items="[
+                    { label: 'App name', value: appName ?? 'SahilPHP' },
+                    { label: 'PHP version', value: phpVersion ?? 'unknown' },
+                    { label: 'Asset mode', value: assetMode ?? 'unknown' }
+                ]"
+            />
+
+            <DashboardCard
+                title="Getting started"
+                subtitle="Next steps for this starter-kit"
+                :items="[
+                    { label: 'Install dependencies', value: 'npm install' },
+                    { label: 'Run Vite dev server', value: 'npm run dev' },
+                    { label: 'Type check', value: 'npm run type-check' },
+                    { label: 'Production build', value: 'npm run build' }
+                ]"
+            />
+        </section>
+
+        <section class="home__example">
+            <h2 class="home__section-title">Controller data as props</h2>
+            <p class="home__section-note">
+                The {{ appName ?? 'application' }} controller passes this data to Vue as an
+                immutable props object. If this page displays the framework name or your PHP
+                environment version, rendering is wired end to end.
+            </p>
+        </section>
+    </div>
+</template>
+
+<script setup lang="ts">
+import DashboardCard from '@/components/DashboardCard.vue';
+
+interface HomePageData {
+    appName?: string;
+    phpVersion?: string;
+    assetMode?: string;
+}
+
+const props = defineProps<HomePageData>();
+</script>
+
+<style scoped>
+.home {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem;
+}
+
+.home__header {
+    margin-bottom: 2.5rem;
+}
+
+.home__kicker {
+    margin: 0 0 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #2563eb;
+}
+
+.home__title {
+    margin: 0 0 1rem;
+    font-size: 2.2rem;
+    line-height: 1.2;
+    color: #111827;
+}
+
+.home__description {
+    margin: 0 0 2rem;
+    color: #4b5563;
+    line-height: 1.65;
+}
+
+.home__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.home__section-title {
+    margin: 0 0 0.5rem;
+    font-size: 1.25rem;
+    color: #111827;
+}
+
+.home__section-note {
+    margin: 0 0 1.5rem;
+    color: #4b5563;
+    line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+    .home__title {
+        font-size: 1.75rem;
+    }
+}
+</style>

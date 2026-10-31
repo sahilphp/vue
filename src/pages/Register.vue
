@@ -1,0 +1,19 @@
+<template>
+    <div class="auth-page auth-page--register">
+        <AuthForm
+            mode="register"
+            submit-label="Create account"
+            @submit="onSubmit"
+        />
+    </div>
+</template>
+
+<script setup lang="ts">
+import AuthForm from '@/components/AuthForm.vue';
+
+const onSubmit = () => {
+    // Demo-only UI. The generated project wires POST handlers through the
+    // real registered auth services; the starter-kit only supplies frontend
+    // views and leaves the handler registration to the demo project.
+};
+</script>

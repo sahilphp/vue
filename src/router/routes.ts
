@@ -1,0 +1,49 @@
+import { createRouter, createWebHistory } from 'vue-router';
+
+export const routes = [
+    {
+        name: 'home',
+        path: '/',
+        component: () => import('@/pages/Home.vue'),
+    },
+    {
+        name: 'dashboard',
+        path: '/dashboard',
+        component: () => import('@/pages/Dashboard.vue'),
+    },
+    {
+        name: 'form',
+        path: '/form',
+        component: () => import('@/pages/Form.vue'),
+    },
+    {
+        name: 'login',
+        path: '/auth/login',
+        component: () => import('@/pages/Login.vue'),
+    },
+    {
+        name: 'register',
+        path: '/auth/register',
+        component: () => import('@/pages/Register.vue'),
+    },
+    {
+        name: 'forgot-password',
+        path: '/auth/forgot-password',
+        component: () => import('@/pages/ForgotPassword.vue'),
+    },
+    {
+        name: 'reset-password',
+        path: '/auth/reset-password',
+        component: () => import('@/pages/ResetPassword.vue'),
+    },
+    {
+        name: 'not-found',
+        path: '/:pathMatch(.*)*',
+        component: () => import('@/pages/NotFound.vue'),
+    },
+];
+
+export const router = createRouter({
+    history: createWebHistory(),
+    routes,
+});

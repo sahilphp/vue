@@ -1,0 +1,142 @@
+<template>
+    <div class="auth-form__card">
+        <form no-validate @submit.prevent="submit">
+            <div v-if="showEmail" class="auth-form__field">
+                <label for="auth-email">Email</label>
+                <input
+                    id="auth-email"
+                    v-model="email"
+                    type="email"
+                    autocomplete="email"
+                    required
+                />
+                <p v-if="errors.has('email')" class="auth-form__error" role="alert">
+                    {{ errors.get('email') ?? 'This field is invalid.' }}
+                </p>
+            </div>
+
+            <div v-if="showPassword" class="auth-form__field">
+                <label for="auth-password">Password</label>
+                <input
+                    id="auth-password"
+                    v-model="password"
+                    type="password"
+                    autocomplete="current-password"
+                    required
+                />
+                <p v-if="errors.has('password')" class="auth-form__error" role="alert">
+                    {{ errors.get('password') ?? 'This field is invalid.' }}
+                </p>
+            </div>
+
+            <div v-if="showConfirmPassword" class="auth-form__field">
+                <label for="auth-confirm-password">Confirm Password</label>
+                <input
+                    id="auth-confirm-password"
+                    v-model="confirmPassword"
+                    type="password"
+                    autocomplete="new-password"
+                    required
+                />
+                <p v-if="errors.has('confirmPassword')" class="auth-form__error" role="alert">
+                    {{ errors.get('confirmPassword') ?? 'This field is invalid.' }}
+                </p>
+            </div>
+
+            <button type="submit" class="btn btn--primary">
+                {{ submitLabel }}
+            </button>
+
+            <p v-if="result?.message" class="auth-form__message" role="status">
+                {{ result.message }}
+            </p>
+        </form>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+
+export interface AuthFormProps {
+    mode: 'login' | 'register' | 'forgot';
+    submitLabel: string;
+    result?: {
+        message?: string;
+    };
+}
+
+const props = withDefaults(defineProps<AuthFormProps>(), {
+    result: undefined,
+});
+
+const emit = defineEmits<{
+    submit: [];
+}>();
+
+const email = ref('');
+const password = ref('');
+const confirmPassword = ref('');
+
+const showEmail = computed(() => props.mode === 'register' || props.mode === 'forgot');
+const showPassword = computed(() => props.mode === 'login' || props.mode === 'register');
+const showConfirmPassword = computed(() => props.mode === 'register');
+
+const errors = {
+    has: (name: string) => false,
+    get: (name: string) => undefined,
+};
+
+const submit = () => {
+    emit('submit');
+};
+</script>
+
+<style scoped>
+.auth-form__card {
+    max-width: 420px;
+    margin: 2rem auto;
+}
+
+.auth-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+}
+
+.auth-form__label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #111827;
+}
+
+.auth-form__field input {
+    padding: 0.625rem 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 0.925rem;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-form__field input:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18);
+}
+
+.auth-form__error {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #991b1b;
+}
+
+.auth-form__message {
+    margin: 1rem 0 0;
+    padding: 0.6rem 0.75rem;
+    border-radius: 0.375rem;
+    background: #f0fdf4;
+    border: 1px solid #86efac;
+    color: #166534;
+    font-size: 0.875rem;
+}
+</style>
