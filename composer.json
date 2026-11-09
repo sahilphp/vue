@@ -10,7 +10,7 @@
     },
     "require": {
         "php": ">=8.2",
-        "sahilphp/framework": "^1.0"
+        "sahilphp/framework": "^1.1"
     },
     "autoload": {
         "psr-4": {
@@ -55,6 +55,18 @@
                 "extension": ".sahil.php"
             }
         }
+    },
+    "archive": {
+        "exclude": [
+            "/.git",
+            "/.github",
+            "/.phpunit.cache",
+            "/composer.lock",
+            "/node_modules",
+            "/package-lock.json",
+            "/tests",
+            "/vendor"
+        ]
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
