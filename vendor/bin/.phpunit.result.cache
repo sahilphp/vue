@@ -1,0 +1,1 @@
+{"version":2,"defects":[],"times":{"Tests\\CreateProjectGuardTest::test_composer_json_is_a_library_with_the_guard_script":0,"Tests\\CreateProjectGuardTest::test_create_project_script_exits_one_with_a_clear_error":0.054,"Tests\\PackageFilenamesTest::test_package_paths_have_no_control_characters":0.001}}
